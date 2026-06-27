@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Syntecxhub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg1: #667eea;
+    --bg2: #764ba2;
+    --bg3: #f093fb;
+    --card: rgba(255,255,255,0.15);
+    --card-solid: rgba(255,255,255,0.95);
+    --border: rgba(255,255,255,0.25);
+    --text: #1a1035;
+    --text-light: #ffffff;
+    --muted: rgba(255,255,255,0.7);
+    --purple: #5b3cc4;
+    --accent: #a78bfa;
+    --shadow: 0 8px 32px rgba(91,60,196,0.18);
+  }
+
+  [data-theme="dark"] {
+    --card: rgba(30,20,60,0.7);
+    --card-solid: rgba(20,12,45,0.95);
+    --border: rgba(167,139,250,0.2);
+    --text: #f0eaff;
+    --muted: rgba(200,185,255,0.6);
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    color: var(--text-light);
+  }
+
+  /* ANIMATED GRADIENT BG */
+  .bg-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #f5f5f7;
+  }
+
+  [data-theme="dark"] .bg-wrap {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  }
+
+  /* FLOATING ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb1 { width: 400px; height: 400px; background: #a78bfa; top: -100px; right: -100px; animation-delay: 0s; }
+  .orb2 { width: 300px; height: 300px; background: #f093fb; bottom: 100px; left: -80px; animation-delay: 3s; }
+  .orb3 { width: 200px; height: 200px; background: #667eea; top: 50%; left: 40%; animation-delay: 6s; }
+
+  @keyframes orbFloat {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0; z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.85);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1035;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--purple); }
+
+  .dark-toggle {
+    background: rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 99px;
+    padding: 6px 16px;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dark-toggle:hover { background: rgba(0,0,0,0.1); }
+
+  [data-theme="dark"] nav {
+    background: rgba(15,12,41,0.85);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  [data-theme="dark"] .nav-logo { color: #fff; }
+  [data-theme="dark"] .dark-toggle { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 52px;
+    animation: heroIn 0.8s ease forwards;
+  }
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(91,60,196,0.08);
+    backdrop-filter: blur(10px);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 99px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(91,60,196,0.15);
+  }
+  .hero h1 {
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+    color: #1a1035;
+    margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--purple);
+    -webkit-text-fill-color: var(--purple);
+  }
+  .hero p {
+    font-size: 17px;
+    color: #86868b;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  [data-theme="dark"] .hero h1 { color: #fff; }
+  [data-theme="dark"] .hero h1 em {
+    background: linear-gradient(135deg,#fff 0%,#f0c4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  [data-theme="dark"] .hero p { color: rgba(255,255,255,0.65); }
+  [data-theme="dark"] .hero-badge { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); }
+
+  /* SEARCH */
+  .search-wrap {
+    max-width: 540px;
+    margin: 36px auto 0;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 16px 20px 16px 52px;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1a1035;
+    outline: none;
+    transition: all .25s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .search-wrap input::placeholder { color: #86868b; }
+  .search-wrap input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(91,60,196,0.1);
+  }
+  [data-theme="dark"] .search-wrap input {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: #fff;
+    backdrop-filter: blur(16px);
+  }
+  [data-theme="dark"] .search-wrap input::placeholder { color: rgba(255,255,255,0.45); }
+  [data-theme="dark"] .search-wrap input:focus { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 0 4px rgba(255,255,255,0.1); }
+  .s-icon {
+    position: absolute;
+    left: 18px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  /* CATS */
+  .cats {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 32px 24px 0;
+  }
+  .cat-btn {
+    padding: 8px 20px;
+    border-radius: 99px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    color: #555;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .cat-btn:hover { background: #f0ebff; color: var(--purple); border-color: var(--accent); transform: translateY(-1px); }
+  .cat-btn.active { background: var(--purple); color: #fff; border-color: var(--purple); box-shadow: 0 4px 16px rgba(91,60,196,0.3); }
+  [data-theme="dark"] .cat-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
+  [data-theme="dark"] .cat-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+  [data-theme="dark"] .cat-btn.active { background: #fff; color: var(--purple); border-color: #fff; }
+
+  /* FAQ */
+  .faq-container {
+    max-width: 720px;
+    margin: 52px auto 60px;
+    padding: 0 24px;
+  }
+
+  .faq-group { margin-bottom: 44px; }
+
+  .faq-group-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 14px;
+    padding-left: 4px;
+  }
+  [data-theme="dark"] .faq-group-title { color: rgba(255,255,255,0.5); }
+
+  .faq-item {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 18px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    animation: fadeUp .5s ease both;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .faq-item:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 8px 24px rgba(91,60,196,0.1); }
+  .faq-item.open { border-color: var(--purple); box-shadow: 0 8px 32px rgba(91,60,196,0.15); }
+  [data-theme="dark"] .faq-item { background: rgba(30,20,60,0.7); border-color: rgba(167,139,250,0.2); backdrop-filter: blur(20px); }
+  [data-theme="dark"] .faq-item:hover { border-color: rgba(255,255,255,0.4); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  [data-theme="dark"] .faq-item.open { border-color: rgba(255,255,255,0.5); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    gap: 16px;
+  }
+  .faq-q-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1035;
+    line-height: 1.4;
+    flex: 1;
+  }
+  [data-theme="dark"] .faq-q-text { color: #fff; }
+
+  .faq-icon {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(91,60,196,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .25s, transform .4s cubic-bezier(.34,1.56,.64,1);
+    border: 1px solid rgba(91,60,196,0.15);
+  }
+  .faq-item.open .faq-icon { background: var(--purple); transform: rotate(45deg); border-color: var(--purple); }
+  .faq-icon svg { width: 16px; height: 16px; }
+  .faq-icon svg path { stroke: var(--purple); fill: none; stroke-width: 2.5; stroke-linecap: round; }
+  .faq-item.open .faq-icon svg path { stroke: #fff; }
+  [data-theme="dark"] .faq-icon { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+  [data-theme="dark"] .faq-icon svg path { stroke: #fff; }
+  [data-theme="dark"] .faq-item.open .faq-icon { background: #fff; }
+  [data-theme="dark"] .faq-item.open .faq-icon svg path { stroke: var(--purple); }
+
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); }
+  .faq-a-inner {
+    padding: 0 24px 20px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    padding-top: 16px;
+  }
+  .faq-a-inner strong { color: #1a1035; font-weight: 600; }
+  .faq-a-inner em { color: var(--purple); font-style: italic; }
+  [data-theme="dark"] .faq-a-inner { color: rgba(255,255,255,0.65); border-top-color: rgba(255,255,255,0.1); }
+  [data-theme="dark"] .faq-a-inner strong { color: #fff; }
+  [data-theme="dark"] .faq-a-inner em { color: rgba(255,255,255,0.9); }
+
+  /* STILL HAVE Q */
+  .still {
+    max-width: 720px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+  }
+  .still-card {
+    background: var(--purple);
+    border: none;
+    border-radius: 24px;
+    padding: 48px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s;
+    box-shadow: 0 8px 40px rgba(91,60,196,0.25);
+  }
+  [data-theme="dark"] .still-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(24px);
+  }
+  .still-card:hover { transform: translateY(-4px); }
+  .still-card::before {
+    content: '?';
+    position: absolute;
+    font-size: 200px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    top: -30px; right: -10px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .still-card h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+  .still-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 28px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .still-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--purple);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 32px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    letter-spacing: -0.01em;
+  }
+  .still-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .still-btn:active { transform: scale(0.97); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+    color: #86868b;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  footer strong { color: var(--purple); }
+  [data-theme="dark"] footer { color: rgba(255,255,255,0.35); border-top-color: rgba(255,255,255,0.08); }
+  [data-theme="dark"] footer strong { color: rgba(255,255,255,0.6); }
+
+  .no-result {
+    text-align: center;
+    padding: 48px 0;
+    color: #86868b;
+    display: none;
+  }
+  .no-result h3 { font-size: 20px; margin-bottom: 8px; color: #1a1035; }
+  [data-theme="dark"] .no-result { color: rgba(255,255,255,0.5); }
+  [data-theme="dark"] .no-result h3 { color: #fff; }
+
+  /* orbs hidden in light mode */
+  [data-theme="light"] .orb { display: none; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    max-width: 720px;
+    margin: 0 auto 0;
+    padding: 0 24px;
+  }
+  .stat-pill {
+    flex: 1;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .stat-n { font-size: 24px; font-weight: 700; color: var(--purple); }
+  .stat-l { font-size: 11px; color: #86868b; margin-top: 2px; letter-spacing: .06em; }
+  [data-theme="dark"] .stat-pill { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); backdrop-filter: blur(16px); }
+  [data-theme="dark"] .stat-n { color: #fff; }
+  [data-theme="dark"] .stat-l { color: rgba(255,255,255,0.5); }
+
+  @media (max-width: 600px) {
+    nav { padding: 12px 20px; }
+    .hero { padding: 52px 20px 36px; }
+    .faq-q { padding: 16px 18px; }
+    .faq-a-inner { padding: 0 18px 18px; padding-top: 14px; }
+    .still-card { padding: 32px 24px; }
+    .stats-bar { flex-direction: column; gap: 4px; }
+    .stat-pill:first-child, .stat-pill:last-child { border-radius: 12px; }
+    .stat-pill { border-radius: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-wrap"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<nav>
+  <div class="nav-logo">Syntecx<span>hub</span></div>
+  <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙 Dark Mode</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">✦ Help Center</div>
+  <h1>Frequently Asked<br><em>Questions</em></h1>
+  <p>Everything you need to know about the Syntecxhub Frontend Internship Program.</p>
+  <div class="search-wrap">
+    <span class="s-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search any question..." oninput="filterFAQ()">
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-pill"><div class="stat-n">10</div><div class="stat-l">Questions</div></div>
+  <div class="stat-pill"><div class="stat-n">4</div><div class="stat-l">Categories</div></div>
+  <div class="stat-pill"><div class="stat-n">∞</div><div class="stat-l">Support</div></div>
+</div>
+
+<div class="cats" style="margin-top:32px">
+  <button class="cat-btn active" onclick="filterCat('all', this)">All</button>
+  <button class="cat-btn" onclick="filterCat('internship', this)">🎓 Internship</button>
+  <button class="cat-btn" onclick="filterCat('projects', this)">💻 Projects</button>
+  <button class="cat-btn" onclick="filterCat('submission', this)">📤 Submission</button>
+  <button class="cat-btn" onclick="filterCat('technical', this)">⚙️ Technical</button>
+</div>
+
+<div class="faq-container" id="faqContainer">
+
+  <div class="faq-group" data-cat="internship">
+    <div class="faq-group-title">🎓 Internship Program</div>
+    <div class="faq-item" data-q="what is syntecxhub internship program about" style="animation-delay:.05s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is the Syntecxhub Internship Program about?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Syntecxhub's internship is a hands-on frontend development program where you build real-world projects weekly. You'll gain practical skills in HTML, CSS, and JavaScript while working on tasks that mirror professional development workflows.</div></div>
+    </div>
+    <div class="faq-item" data-q="how long is the internship duration time commitment" style="animation-delay:.1s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How long is the internship and what is the time commitment?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">The internship runs on a weekly task model. You receive new projects each week that must be submitted within the given deadline. Expected time commitment is <strong>8–12 hours per week</strong> depending on task complexity.</div></div>
+    </div>
+    <div class="faq-item" data-q="will i receive a certificate after completing internship" style="animation-delay:.15s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Will I receive a certificate after completing the internship?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Yes! Interns who successfully complete all required projects will receive an official Syntecxhub completion certificate. Completing multiple optional projects significantly improves your chances of receiving a <strong>merit certificate</strong>.</div></div>
+    </div>
+  </div>
+
+  <div class="faq-group" data-cat="projects">
+    <div class="faq-group-title">💻 Projects</div>
+    <div class="faq-item" data-q="how many projects do i need to complete each week" style="animation-delay:.2s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How many projects do I need to complete each week?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">You are required to complete <strong>at least one project</strong> per week. Completing multiple projects is optional but highly encouraged — it demonstrates initiative and a deeper interest in learning.</div></div>
+    </div>
+    <div class="faq-item" data-q="can i use frameworks react vue tailwind for projects" style="animation-delay:.25s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I use frameworks like React or Tailwind for projects?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Projects are primarily <strong>HTML, CSS, and JavaScript</strong> based. Unless a task specifically mentions a framework, stick to vanilla JS. CSS utility libraries like Tailwind are generally acceptable — when in doubt, check with your mentor.</div></div>
+    </div>
+    <div class="faq-item" data-q="what if i am stuck on project need help mentor" style="animation-delay:.3s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What if I get stuck on a project and need help?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Reach out to Syntecxhub mentors via official channels. Additionally, MDN Web Docs, Stack Overflow, and the example links in each task are great starting points. Don't wait too long — ask early!</div></div>
+    </div>
+  </div>
+
+  <div class="faq-group" data-cat="submission">
+    <div class="faq-group-title">📤 Submission</div>
+    <div class="faq-item" data-q="how do i submit my completed project form github" style="animation-delay:.35s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How do I submit my completed project?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Submit via the official <strong>Submission Form</strong>. Upload source code to GitHub in a repo named <strong>Syntecxhub_ProjectName</strong>, share it on LinkedIn mentioning <strong>@Syntecxhub</strong>, and include your live GitHub Pages link in the form.</div></div>
+    </div>
+    <div class="faq-item" data-q="what happens if i miss submission deadline late" style="animation-delay:.4s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What happens if I miss the submission deadline?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Late submissions may not be accepted or could be marked down. Communicate proactively with your mentor <strong>before</strong> the deadline if you face an unavoidable issue. Manage your time — start early!</div></div>
+    </div>
+  </div>
+
+  <div class="faq-group" data-cat="technical">
+    <div class="faq-group-title">⚙️ Technical</div>
+    <div class="faq-item" data-q="how do i deploy upload project to github pages live" style="animation-delay:.45s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How do I deploy my project to GitHub Pages?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Create a GitHub repo named <strong>Syntecxhub_ProjectName</strong>, upload your files ensuring the main file is <strong>index.html</strong>, then go to <em>Settings → Pages → Select main branch → Save</em>. Your site will be live within 2–5 minutes!</div></div>
+    </div>
+    <div class="faq-item" data-q="should my project be mobile responsive" style="animation-delay:.5s">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Should my project be mobile responsive?</span>
+        <span class="faq-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — all projects must work on both desktop and mobile. Use CSS <strong>flexbox, grid, and media queries</strong>. Responsiveness is always evaluated as part of the project quality criteria. Test on multiple screen sizes before submitting.</div></div>
+    </div>
+  </div>
+
+  <div class="no-result" id="noResult">
+    <div style="font-size:48px;margin-bottom:12px">🔍</div>
+    <h3>No results found</h3>
+    <p>Try different keywords or browse by category above.</p>
+  </div>
+
+</div>
+
+<div class="still">
+  <div class="still-card">
+    <h3>Still have questions?</h3>
+    <p>Can't find what you're looking for? Our team is always happy to help you out.</p>
+    <button class="still-btn" onclick="alert('Reach out: @Syntecxhub on LinkedIn')">Contact Syntecxhub →</button>
+  </div>
+</div>
+
+<footer>
+  Made with ❤️ by <strong>Rishikesh Bhaskar</strong> · Syntecxhub Frontend Internship · Week 2
+</footer>
+
+<script>
+  function toggle(btn) {
+    var item = btn.closest('.faq-item');
+    var answer = item.querySelector('.faq-a');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el) {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.faq-group').forEach(function(g) {
+      g.style.display = (cat === 'all' || g.dataset.cat === cat) ? 'block' : 'none';
+    });
+    document.getElementById('searchInput').value = '';
+    document.getElementById('noResult').style.display = 'none';
+  }
+
+  function filterFAQ() {
+    var q = document.getElementById('searchInput').value.toLowerCase().trim();
+    var items = document.querySelectorAll('.faq-item');
+    var any = false;
+    document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelector('.cat-btn').classList.add('active');
+    document.querySelectorAll('.faq-group').forEach(function(g) { g.style.display = 'block'; });
+    if (!q) {
+      items.forEach(function(i) { i.style.display = 'block'; });
+      document.getElementById('noResult').style.display = 'none';
+      return;
+    }
+    items.forEach(function(item) {
+      var match = (item.dataset.q || '').includes(q) || item.querySelector('.faq-a-inner').textContent.toLowerCase().includes(q);
+      item.style.display = match ? 'block' : 'none';
+      if (!match) { item.classList.remove('open'); item.querySelector('.faq-a').style.maxHeight = '0'; }
+      if (match) any = true;
+    });
+    document.querySelectorAll('.faq-group').forEach(function(g) {
+      var vis = Array.from(g.querySelectorAll('.faq-item')).some(function(i) { return i.style.display !== 'none'; });
+      g.style.display = vis ? 'block' : 'none';
+    });
+    document.getElementById('noResult').style.display = any ? 'none' : 'block';
+  }
+
+  function toggleDark() {
+    var html = document.documentElement;
+    var btn = document.getElementById('darkBtn');
+    if (html.dataset.theme === 'dark') {
+      html.dataset.theme = 'light';
+      btn.textContent = '🌙 Dark Mode';
+    } else {
+      html.dataset.theme = 'dark';
+      btn.textContent = '☀️ Light Mode';
+    }
+  }
+</script>
+</body>
+</html>
